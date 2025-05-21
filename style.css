@@ -1,0 +1,97 @@
+/* Reset some default styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.hero {
+    background-image: url('https://images.unsplash.com/photo-1551892589-865f69869443'); /* Replace with your preferred image */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    padding: 20px;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #fb15f3;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #fb15f3;
+}
+
+.btn.secondary {
+    background-color: transparent;
+    border: 2px solid white;
+}
+
+.btn.secondary:hover {
+    background-color: white;
+    color: black;
+}
+.highlight {
+    margin-top: 40px;
+}
+
+.highlight h3 {
+    font-size: 2rem;
+    color: #f04e30;
+    margin-bottom: 10px;
+}
+
+.mission-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #222;
+    line-height: 1.6;
+}
