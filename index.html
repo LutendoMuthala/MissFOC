@@ -203,16 +203,17 @@
 
         /* Categories section background */
         .categories {
-            /* overlay for readability + local Categories image */
-            background: linear-gradient(rgba(255,255,255,0.72), rgba(255,255,255,0.36)), url('Categories.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            /* Pink background - matches navbar and registration section */
+            background: #ff1493;
             /* ensure text is readable; adjust color if needed */
-            color: #6b003a;
+            color: #ffffff;
             /* add extra padding so content doesn't touch edges of the background */
             padding-top: 4rem;
             padding-bottom: 4rem;
+        }
+
+        .categories h2 {
+            color: #ffffff;
         }
 
         .category-card { background: white; padding: 1.25rem; border-radius: 12px; text-align:center; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
@@ -241,7 +242,7 @@
         }
 
         .faq-item summary::before {
-            content: "▶ ";
+            content: "";
             display: inline-block;
             margin-right: 0.5rem;
             transition: transform 0.2s ease;
