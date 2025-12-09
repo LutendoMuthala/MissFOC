@@ -5,17 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Miss Face of Courageous SA</title>
     <style>
+        /* Reset + base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: rgb(168, 32, 232);
-            background-color: #f8f5f3;
+            color: #c71585;
+            background-color: #ffffff;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
         }
 
         .container {
@@ -26,338 +33,281 @@
 
         /* Navigation */
         .navbar {
-            background: linear-gradient(135deg, #af117d, #b35b6f);
-            padding: 1rem 0;
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            padding: 0.6rem 0;
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.18);
         }
 
         .navbar .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 1rem;
         }
 
         .logo img {
-            height: 50px;
+            height: 64px;
+            max-width: 100%;
+            width: auto;
+            display: block;
         }
+
+        /* Mobile menu toggle (checkbox) */
+        .menu-toggle {
+            display: none;
+        }
+
+        .menu-btn {
+            display: none; /* shown on small screens */
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .menu-btn span,
+        .menu-btn span::before,
+        .menu-btn span::after {
+            display: block;
+            background: #ffdfe8;
+            height: 2px;
+            width: 20px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .menu-btn span::before,
+        .menu-btn span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        .menu-btn span::before { top: -6px; }
+        .menu-btn span::after { top: 6px; }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 1.2rem;
+            align-items: center;
         }
 
         .nav-links a {
-            color: #f4e4bc;
+            color: #ffdfe8; /* pale rose */
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            font-weight: 600;
+            transition: color 0.2s ease;
+            padding: 0.4rem 0.6rem;
         }
 
         .nav-links a:hover {
-            color: #d4af37;
+            color: #fff;
         }
 
         /* Hero Section */
-       .hero {
-    width: 100vw; /* Full viewport width */
-    background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('background.jpg');
-    background-size: cover; /* or 'contain' if you prefer full faces shown */
-    background-position: center top;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    margin-top: 70px;
-}
+        .hero {
+            width: 100%;
+            /* Local PNG preferred; fall back to a hosted image so the hero always shows a background during development */
+            background: linear-gradient(rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.28)), url('background.png'), url('https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            /* Increased height and padding for a larger landing presence */
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 72px; /* account for fixed navbar */
+            padding: 4rem 0 3.5rem 0;
+            position: relative;
+        }
 
+        /* Decorative separator band between the landing and the next section */
+        .hero::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -12px; /* overlap slightly with following section */
+            height: 16px;
+            background: linear-gradient(90deg, rgba(255,20,147,0.95), rgba(255,105,180,0.95));
+            box-shadow: 0 6px 18px rgba(255,20,147,0.15);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            z-index: 2;
+        }
 
         .hero-content h1 {
-            font-size: 3.5rem;
+            /* fluid typography - larger for a stronger landing presence */
+            font-size: clamp(2rem, 5vw + 0.5rem, 4.8rem);
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.45);
+            line-height: 1.02;
+            letter-spacing: -0.5px;
         }
 
         .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            font-size: clamp(1rem, 2vw + 0.2rem, 1.4rem);
+            margin-bottom: 1.25rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
         }
 
         .buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.9rem;
             justify-content: center;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 10px 20px;
             text-decoration: none;
             border-radius: 25px;
-            font-weight: bold;
-            transition: all 0.3s ease;
+            font-weight: 700;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: inline-block;
+            background: linear-gradient(90deg, #ffdfe8, #ffc0d9);
+            color: #c71585;
         }
 
-        .btn {
-            background: #d4af37;
-            color: #2c1810;
-        }
-
-        .btn:hover {
-            background: #f4e4bc;
-            transform: translateY(-2px);
-        }
-
-        .btn.secondary {
-            background: transparent;
-            color: #f4e4bc;
-            border: 2px solid #f4e4bc;
-        }
-
-        .btn.secondary:hover {
-            background: #f4e4bc;
-            color: #2c1810;
+        .btn.primary {
+            background: linear-gradient(90deg, #ff1493, #ff69b4);
+            color: white;
+            padding: 12px 28px;
+            box-shadow: 0 10px 30px rgba(255,20,147,0.3);
         }
 
         /* Sections */
-        .section {
-            padding: 80px 0;
+        .section { padding: 60px 0; }
+
+        .section h2 { text-align:center; font-size: clamp(1.4rem, 2.4vw, 2.5rem); margin-bottom: 1.75rem; color: #c71585; }
+
+        .about-section { background: #ffffff; color: #222222; }
+
+        .highlight { background: #ffffff; padding: 1.25rem; margin: 1rem 0; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); border: 1px solid #eaeaea; }
+
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-top: 1rem; }
+
+        .category-card { background: white; padding: 1.25rem; border-radius: 12px; text-align:center; box-shadow: 0 8px 20px rgba(0,0,0,0.06); }
+
+        .faq-item { background: #fff0f6; padding: 1.5rem; margin: 1.25rem 0; border-radius: 10px; border-left: 4px solid #ff1493; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+
+        .faq-item h4 { color: #c71585; margin-bottom: 0.75rem; font-size: 1.1rem; }
+
+        .faq-item p { color: #333; line-height: 1.8; margin: 0.5rem 0; }
+
+        .faq-item ul { color: #333; }
+
+        /* Collapsible FAQ styling */
+        .faq-item summary {
+            cursor: pointer;
+            color: #c71585;
+            font-weight: 600;
+            font-size: 1.05rem;
+            padding: 0.5rem 0;
+            user-select: none;
+            transition: color 0.2s ease;
         }
 
-        .section h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c1810;
+        .faq-item summary:hover {
+            color: #ff1493;
         }
 
-        .about-section {
-            background: #fff;
-        }
-
-        .highlight {
-            background: linear-gradient(135deg, #f4e4bc, #d4af37);
-            padding: 2rem;
-            margin: 2rem 0;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .highlight h3 {
-            color: #2c1810;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .mission-text {
-            font-size: 1.1rem;
-            font-style: italic;
-            color: #2c1810;
-        }
-
-        /* Categories Section */
-        .categories {
-            background: linear-gradient(135deg, #f4e4bc, #d4af37);
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .category-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .category-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .category-card h3 {
-            color: #2c1810;
-            margin-bottom: 1rem;
-        }
-
-        /* Timeline Section */
-        .timeline {
-            background: #fff;
-        }
-
-        .timeline-items {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #f4e4bc, #d4af37);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .timeline-date {
-            background: #2c1810;
-            color: white;
-            padding: 1rem;
-            border-radius: 10px;
-            margin-right: 2rem;
-            min-width: 120px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        /* Registration Form */
-        .registration {
-            background: linear-gradient(135deg, #2c1810, #8b4513);
-            color: white;
-        }
-
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.95);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-        }
-
-        .form-container h2 {
-            color: #2c1810;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: bold;
-            color: #2c1810;
-        }
-
-        .form-group label .required {
-            color: #d32f2f;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #d4af37;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #2c1810;
-            box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .file-upload {
-            position: relative;
+        .faq-item summary::before {
+            content: "▶ ";
             display: inline-block;
-            width: 100%;
+            margin-right: 0.5rem;
+            transition: transform 0.2s ease;
         }
 
-        .file-upload input[type="file"] {
-            opacity: 0;
-            position: absolute;
-            z-index: -1;
+        .faq-item[open] summary::before {
+            transform: rotate(90deg);
         }
 
-        .file-upload-label {
-            display: block;
-            padding: 12px;
-            background: #f4e4bc;
-            border: 2px dashed #d4af37;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: #2c1810;
+        .faq-item p {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 20, 147, 0.1);
         }
 
-        .file-upload-label:hover {
-            background: #d4af37;
-            color: white;
+        .faq-item ul {
+            margin-top: 1rem;
         }
 
-        .submit-btn {
-            background: linear-gradient(135deg, #d4af37, #f4e4bc);
-            color: #2c1810;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            margin-top: 2rem;
+        .timeline-items { max-width: 900px; margin: 0 auto; }
+
+        .timeline-item { display:flex; gap:1rem; align-items:center; margin:1rem 0; padding:1rem; border-radius:10px; background: linear-gradient(135deg,#fff0f6,#ffe4f0); }
+
+        .timeline-date { background:#ff1493; color:white; padding:0.75rem; border-radius:8px; min-width:100px; text-align:center; font-weight:700; }
+
+        /* Registration form */
+        .registration { background: linear-gradient(135deg, #ff69b4, #ff1493); color: white; }
+
+        .form-container { max-width: 900px; margin: 0 auto; background: rgba(255,255,255,0.95); padding: 2rem; border-radius: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.18); }
+
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.25rem 0; }
+
+        .form-group.full-width { grid-column: 1 / -1; }
+
+        .form-group input, .form-group textarea, .form-group select { width:100%; padding:10px; border:2px solid #ff69b4; border-radius:8px; font-size:1rem; }
+
+        .file-upload-label { display:block; padding:10px; background:#fff0f6; border:2px dashed #ff69b4; border-radius:8px; text-align:center; cursor:pointer; }
+
+        .submit-btn { background: linear-gradient(135deg, #ff1493, #ff69b4); color:white; padding:12px 20px; border-radius:20px; width:100%; font-weight:700; }
+
+        .footer { background:#ff1493; color:#fff0f6; padding:2.5rem 0; text-align:center; }
+
+        /* Make images responsive */
+        img { max-width:100%; height:auto; display:block; }
+
+        /* Responsive behavior */
+        @media (max-width: 900px) {
+            .nav-links { gap: 0.8rem; }
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        /* Small screens: collapse nav, stack grids */
+        @media (max-width: 768px) {
+            .menu-btn { display:flex; }
+            .nav-links { display: none; position: absolute; right: 20px; top: 72px; background: linear-gradient(180deg, rgba(255,105,180,0.98), rgba(255,20,147,0.98)); padding: 0.8rem; border-radius: 10px; flex-direction: column; min-width: 180px; box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+            .nav-links a { padding: 0.6rem 0.8rem; }
+            .menu-toggle:checked + .menu-btn + .nav-links { display: flex; }
+
+            .hero { min-height: 55vh; padding: 2.5rem 1rem; margin-top: 64px; }
+            .hero-content { padding: 0 0.5rem; }
+            .form-grid { grid-template-columns: 1fr; }
+            .timeline-item { flex-direction: column; text-align: center; }
+            .timeline-date { margin-right: 0; margin-bottom: 0.5rem; }
+
+            /* About section: stack image above text on mobile */
+            .about-section div[style*="grid-template-columns: 1fr 1fr"] {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
         }
 
-        /* Footer */
-        .footer {
-            background: #2c1810;
-            color: #f4e4bc;
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .social-links {
-            margin: 2rem 0;
+        @media (max-width: 480px) {
+            .logo img { height: 52px; }
+            .hero-content h1 { font-size: 1.6rem; }
+            .buttons { gap: 0.6rem; }
+            .btn { padding: 9px 14px; font-size: 0.95rem; }
+            .menu-btn { width:40px; height:40px; }
         }
 
         .social-links a {
-            color: #d4af37;
+            color: #ffffff;
             font-size: 1.5rem;
             margin: 0 1rem;
             text-decoration: none;
@@ -395,11 +345,15 @@
             <div class="logo">
                 <img src="missfoclogo.jpg" alt="Miss Face of Courageous Logo">
             </div>
+            <!-- Mobile menu toggle -->
+            <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-hidden="true">
+            <label for="menu-toggle" class="menu-btn" aria-label="Toggle navigation"><span></span></label>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#categories">Categories</a></li>
                 <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#faqs">FAQs</a></li>
                 <li><a href="#registration">Register</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -411,8 +365,9 @@
             <h1>Miss Face of Courageous SA</h1>
             <p>Celebrating boldness, beauty, and bravery.</p>
             <div class="buttons">
-                <a href="#about" class="btn">Learn More</a>
-                <a href="#registration" class="btn secondary">Apply Now</a>
+                <!-- Make Apply the primary, attention-grabbing button -->
+                <a href="#registration" class="btn primary" aria-label="Apply Now — open registration">✨ Apply Now</a>
+                <a href="#about" class="btn secondary">Learn More</a>
             </div>
         </div>
     </header>
@@ -420,55 +375,70 @@
     <section id="about" class="about-section section">
         <div class="container">
             <h2>About Us</h2>
-            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 2rem;">
-                <strong>"Miss Face of Courageous"</strong> is more than a pageant — it's a celebration of strength, resilience, and the power of inner beauty.
-            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; margin-top: 3rem;">
+                <div>
+                    <!-- Local image preferred; if missing fall back to a hosted image. Added lazy loading for performance. -->
+                    <img
+                        src="AboutMe.jpeg"
+                        alt="Miss Face of Courageous South Africa - Community Impact"
+                        style="border-radius: 12px; width: 100%; height: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.12);"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80';"
+                    >
+                </div>
+                <div>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 1.5rem;">
+                        Miss Face of Courageous South Africa is more than just a beauty pageant — it is a movement dedicated to empowering young women to become leaders of purpose, compassion, and community impact. Founded on the values of courage, humanity, and service, our pageant celebrates queens who wear their crowns with responsibility and heart.
+                    </p>
 
-            <div class="highlight">
-                <h3>Our Mission</h3>
-                <p class="mission-text">
-                    To empower and celebrate women who lead with courage, overcome adversity, and inspire others with their stories and strength.
-                </p>
-            </div>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 1.5rem;">
+                        We believe that true beauty shines brightest when it uplifts others. That is why our programme focuses on helping the needy, supporting vulnerable communities, and teaching young women the importance of giving back. Every contestant is encouraged to become an active force for change, using her voice, influence, and creativity to make a difference.
+                    </p>
 
-            <div class="highlight">
-                <h3>Our Vision</h3>
-                <p>
-                    To create a global platform where brave, compassionate, and confident women are recognized as role models and changemakers in society.
-                </p>
-            </div>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 1.5rem;">
+                        Through workshops, mentorship, and community development initiatives, Miss Face of Courageous South Africa equips young women with the confidence, skills, and knowledge they need to lead impactful projects within their communities. Our finalists participate in outreach programmes, charity drives, leadership training, and social responsibility missions that strengthen their character and prepare them for lifelong service.
+                    </p>
 
-            <div class="highlight">
-                <h3>What Makes Us Different</h3>
-                <p>
-                    We celebrate real women with real stories. Our pageant focuses on courage in all its forms - from overcoming personal challenges to making a difference in communities. Every contestant is a winner in her own right.
-                </p>
+                    <p style="font-size: 1.05rem; line-height: 1.8; color: #333; margin-bottom: 1.5rem;">
+                        At Miss Face of Courageous South Africa, we are building compassionate leaders, not just pageant winners. Our mission is to inspire a generation of young women who understand that courage is not the absence of fear — it is the willingness to step forward, uplift others, and create lasting change.
+                    </p>
+
+                    <p style="font-size: 1.15rem; font-weight: 700; color: #af117d; margin-top: 2rem; line-height: 1.6;">
+                        A crown with purpose. A platform for growth. A legacy of courage.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Visual separator -->
+    <div style="height: 80px; background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);"></div>
 
     <section id="categories" class="categories section">
         <div class="container">
             <h2>Competition Categories</h2>
             <div class="category-grid">
                 <div class="category-card">
-                    <h3>Miss Teen Courageous</h3>
-                    <p>Ages 16-19</p>
+                    <h3>Little Face of Courageous</h3>
+                    <p>Ages 5-12</p>
                     <p>For young women showing exceptional courage and leadership in their communities and schools.</p>
                 </div>
                 <div class="category-card">
-                    <h3>Miss Courageous</h3>
-                    <p>Ages 20-27</p>
+                    <h3>Teen Face of Courageous</h3>
+                    <p>Ages 13-19</p>
                     <p>For women demonstrating bravery, compassion, and making positive impacts in society.</p>
                 </div>
                 <div class="category-card">
-                    <h3>Mrs. Courageous</h3>
-                    <p>Ages 28+</p>
-                    <p>For married women and mothers who inspire others through their strength and resilience.</p>
+                    <h3>Miss Face of Courageous</h3>
+                    <p>Ages 20-29</p>
+                    <p>For women who inspire others through their strength and resilience.</p>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Visual separator between categories and timeline -->
+    <div style="height: 80px; background: linear-gradient(180deg, #f5f5f5 0%, #fff0f6 100%);"></div>
 
     <section id="timeline" class="timeline section">
         <div class="container">
@@ -506,6 +476,77 @@
         </div>
     </section>
 
+    <!-- Visual separator between timeline and FAQs -->
+    <div style="height: 80px; background: linear-gradient(180deg, #fff0f6 0%, #ffffff 100%);"></div>
+
+    <section id="faqs" class="faqs section">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div style="max-width: 900px; margin: 0 auto;">
+                <details class="faq-item">
+                    <summary>1. Who can enter Miss Face of Courageous South Africa?</summary>
+                    <p>The pageant is open to young women ages 4 to 29 from all nine provinces of South Africa. We proudly embrace diversity and inclusivity, welcoming contestants from every cultural and community background.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>2. Do I need prior pageant experience to enter?</summary>
+                    <p>No. We welcome both beginners and experienced contestants. Our focus is on growth, confidence, and purpose.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>3. What qualities are you looking for in a contestant?</summary>
+                    <p>We look for young women who show courage, compassion, and a willingness to serve others. Contestants should be passionate about helping the needy, giving back to their community, and finding and performing their purpose and advocacy.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>4. What are the age categories?</summary>
+                    <p>The pageant is open to ages 4–29, organized into three main categories:</p>
+                    <ul style="margin: 0.75rem 0 0 1.5rem; line-height: 1.8;">
+                        <li><strong>Little Face of Courageous:</strong> Ages 5–12</li>
+                        <li><strong>Teen Face of Courageous:</strong> Ages 13–19</li>
+                        <li><strong>Miss Face of Courageous:</strong> Ages 20–29</li>
+                    </ul>
+                </details>
+
+                <details class="faq-item">
+                    <summary>5. Where and how are workshops held?</summary>
+                    <p>All workshops are done online, making them accessible to contestants across South Africa.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>6. Where will the finale event take place?</summary>
+                    <p>The event is hosted in a different province each year. For this year, the finale will be held at Khoroni Hotel in Venda, Limpopo.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>7. What activities do contestants participate in?</summary>
+                    <p>Contestants take part in:</p>
+                    <ul style="margin: 0.75rem 0 0 1.5rem; line-height: 1.8;">
+                        <li>Online workshops and training</li>
+                        <li>Community outreach and charity projects</li>
+                        <li>Interviews</li>
+                        <li>Leadership development</li>
+                        <li>Advocacy development</li>
+                        <li>Pageant rehearsals and the final event</li>
+                    </ul>
+                </details>
+
+                <details class="faq-item">
+                    <summary>8. Is the pageant only about beauty?</summary>
+                    <p>No. Our pageant is built on courage, compassion, purpose, and community impact. True beauty is how you uplift others.</p>
+                </details>
+
+                <details class="faq-item">
+                    <summary>9. Will contestants receive support for their advocacy projects?</summary>
+                    <p>Yes. We guide contestants in discovering, planning, and performing their purpose and advocacy, ensuring they create meaningful change in their communities.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual separator between FAQs and registration -->
+    <div style="height: 80px; background: linear-gradient(180deg, #ffffff 0%, #ff69b4 100%);"></div>
+
     <section id="registration" class="registration section">
         <div class="container">
             <div class="form-container">
@@ -530,9 +571,9 @@
                             <label for="category">Category <span class="required">*</span></label>
                             <select id="category" name="category" required>
                                 <option value="">Select Category</option>
-                                <option value="teen">Miss Teen Courageous (16-19)</option>
-                                <option value="miss">Miss Courageous (20-27)</option>
-                                <option value="mrs">Mrs. Courageous (28+)</option>
+                                <option value="teen">Little Face of Courageous (16-19)</option>
+                                <option value="miss">Teen Face of Courageous (20-27)</option>
+                                <option value="mrs">Miss Face of Courageous (28+)</option>
                             </select>
                         </div>
                     </div>
@@ -592,12 +633,11 @@
     <footer id="contact" class="footer">
         <div class="container">
             <h3>Contact Us</h3>
-            <p>Email: info@missfaceofcourageous.co.za</p>
-            <p>Phone: +27 (0) 11 123 4567</p>
+            <p>Email: pfarisopedrossa@gmail.com</p>
+            <p>Phone: 0798691447</p>
             <div class="social-links">
-                <a href="#">📘 Facebook</a>
-                <a href="#">📷 Instagram</a>
-                <a href="#">🐦 Twitter</a>
+                <a href="https://www.facebook.com/profile.php?id=100064826315231" target="_blank">📘 Facebook</a>
+                <a href="https://www.instagram.com/miss_face_of_courageous_sa/" target="_blank">📷 Instagram</a>
             </div>
             <p>&copy; 2025 Miss Face of Courageous SA. All rights reserved.</p>
         </div>
@@ -659,6 +699,14 @@
                         block: 'start'
                     });
                 }
+            });
+        });
+
+        // Close mobile menu when a nav link is clicked (if open)
+        const _menuToggle = document.getElementById('menu-toggle');
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (_menuToggle) _menuToggle.checked = false;
             });
         });
     </script>
