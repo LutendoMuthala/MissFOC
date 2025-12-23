@@ -579,7 +579,10 @@
                 <h2>Registration Form</h2>
                 <p style="color: #666; margin-bottom: 2rem;">All fields marked with <span style="color: #d32f2f;">*</span> are mandatory</p>
                 
-                <form id="registrationForm" enctype="multipart/form-data">
+                <form id="registrationForm" action="https://formspree.io/f/xpznqkgj" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_next" value="https://yourwebsite.com/thank-you" />
+                    <input type="hidden" name="_subject" value="New Miss FOC Registration" />
+                    <input type="hidden" name="_replyto" value="lutendo.muthala17@gmail.com" />
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="firstName">First Name <span class="required">*</span></label>
@@ -689,30 +692,8 @@
             }
         });
 
-        // Form submission
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Basic validation
-            const requiredFields = this.querySelectorAll('[required]');
-            let allValid = true;
-            
-            requiredFields.forEach(field => {
-                if (!field.value) {
-                    allValid = false;
-                    field.style.borderColor = '#d32f2f';
-                } else {
-                    field.style.borderColor = '#d4af37';
-                }
-            });
-            
-            if (allValid) {
-                alert('Thank you for your registration! We will contact you within 48 hours with further information.');
-                // Here you would typically send the form data to your server
-            } else {
-                alert('Please fill in all required fields.');
-            }
-        });
+        // Form submission - now handled by Formspree
+        // Removed client-side validation and alert; form submits to email
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
